@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="preload">
+	<head>
+		<title>azAd Boilerplate</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" href="./style.css" />
+	</head>
+
+	<body>
+		<div id="azAd" class="interstitial">
+			<!-- what a nice place for an advertisment !-->
+		</div>
+
+		<script>
+			//  define which elements are clickable for a clickout to the landingpage
+			//  just add element IDs to the array like  ['ctaButton', 'logo']
+			//  if you dont add any IDs or remove the variable, the whole body will be clickable
+			const clickableElementIds = [];
+
+			//  here you can define a hardcoded clickTag
+			//  when ad is called with clickTag-URL-parameter, this will be overwritten
+			//-> var clickTag = 'https://example.com';
+		</script>
+
+		<script src="./azAd.js"></script>
+
+		<!-- 
+        GSAP - mostly not necessary, but quite handy for complexe animations -> https://gsap.com/resources
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+        -->
+
+		<script>
+			console.log(create('div', { id: 'test' }));
+			console.log(create('div'));
+		</script>
+	</body>
+</html>

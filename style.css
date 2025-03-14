@@ -1,0 +1,64 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	user-select: none; /* in digital ads we usually dont select any elements */
+}
+
+html,
+body {
+	width: 100%;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+}
+
+#azAd {
+}
+
+#azAd.mpu {
+	width: 300px;
+	height: 250px;
+}
+#azAd.standard {
+	width: 320px;
+	height: 50px;
+}
+#azAd.hpa {
+	width: 300px;
+	height: 600px;
+}
+#azAd.interstitial {
+	width: 100%;
+	height: 100%;
+}
+
+/* Interstitial rotation overlay */
+#azAd.interstitial::after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: absolute;
+	z-index: 99999;
+	left: 0;
+	top: 0;
+	background: url('./assets/rotate.png') center center/50% no-repeat, #202020;
+}
+
+@media screen and (orientation: landscape) {
+	#azAd.interstitial::after {
+		display: block;
+	}
+}
+
+/* 
+this class is part of a little "trick" to avoid unwanted 
+animations on pageload, when using css keyframe anmations.
+the class will be removed by script in azAd.js when 
+everything is loaded
+*/
+html.preload * {
+	animation-duration: 0s !important;
+	transition: all 0s !important;
+}
