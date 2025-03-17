@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	user-select: none; /* in digital ads we usually dont select any elements */
+	user-select: none; /* in digital ads user usually dont select any elements */
 }
 
 html,
@@ -14,6 +14,7 @@ body {
 }
 
 #azAd {
+	background-color: #f3f3f3;
 }
 
 #azAd.mpu {

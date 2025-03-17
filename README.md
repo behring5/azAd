@@ -1,30 +1,65 @@
 <h1>HTML Ad Boilerplate/Toolkit</h1>
 
--  index.html
--  style.css
--  azAd.js
--  assets folder
+<p style="font-size:20px;">This is my basic package to start building an ad from scratch.<p>
+
+-  [index.html](./dist/index.html)
+-  [style.css](./dist/style.css)
+-  [azAd.min.js](./dist/azAd.min.js)
+
+<br>
 
 ---
 
-<h2>azAd.js - a basic toolkit for digital ads</h2>
-azAd.js includes a small selectiom of functions, which either could be usefull for ad creation tasks, or ad operation tasks.
+<h2>index.html & style.css</h2>
+
+The [index.html](./dist/index.html) includes a basic HTML sceleton, with a suitable viewport, a div to work in <code>`<div id="azAd" class="mpu"></div>`</code> and the minifyed [azAd.js](./dist/azAd.js) at the bottom.<br><br>
+The html-tag has a <code>class="preload"</code>. This is added to avoid css keyframe animations beeing visible on pageload (if you know, you know ;-). The class is removed by azAd.js, when all assets are loaded.<br><br>
+The [style.css](./dist/style.css) file includes some basic reset styles, some standard ad sizes and an overlay for the class <code>interstitial</code>, which tells the user to rotate the device.
+<br><br>
+<br>
+
+<h2>azAd.js</h2>
+azAd.js includes a small selection of functions, which I use in my daily work when creating ads or managing the ad ops part of a campaign.
+<br><br>
+
+---
 
 <h3>Clickout handling</h3>
-Clickouts in digital ads are often <b>not</b> triggered by HTML a-tags, but instead by a <code>window.open()</code> javascript function.
-The link is either hardcoded defined in a variable called <code>clickTag</code> or is parsed into the ad via URL parameter.
-
-By default azAd.js is checking for a URL parameter "clicktag" in the URL (e.g. https://cdnserver.com/myad/?clicktag=https://example.com) and assigns it to the whole html body as clickoutlink.
+Clickouts in digital ads are often <b>not</b> triggered by HTML a-tags, but instead by Javascript <code>window.open()</code> function.
+The clickout link is either hardcoded stored in a variable called <code>clickTag</code> or is parsed into the ad via URL parameter.
 <br><br>
+By default azAd.js is checking for a URL parameter "clicktag" in the URL (e.g. https://cdnserver.com/myad/?clicktag=https://example.com) and assigns it to the whole html body as clickoutlink.
+<br>
 If you want to specifiy certain elements to be clickable only, you can add their IDs to the array <code>clickableElementIds</code> in the index.html. Then only the sepcified elements are clickable.
 
-<h3><code>getUrlParam(string)</code> </h3>
+<br>
+
+<br><br>
+
+---
+
+<h3>Function <code>track(pxlUrl)</code> </h3>
+
+This function is loading a tracking pixel, for engagement tracking. If the cachbuster macro <code>`[timestamp]`</code> is found in pixel url, it will be replaced with a randomized number.
+
+<h4>Usage</h4>
+
+```javascript
+var trackingPixel = 'https://trackingserver.com/trackingpixel.jpg?cachebuster=[timestamp]';
+
+track(trackingPixel);
+
+// console shows loaded pixel
+// https://trackingserver.com/trackingpixel.jpg?cachebuster=1354649
+```
+
+<br><br>
+
+---
+
+<h3>Function <code>getUrlParam(string)</code> </h3>
 
 A function to get URL-query parameter data, like a clicktag
-
-return parameter value = the intended functionality to get URL-paramaeter data<br>
-if return <code>false</code> = URL-parameter not found<br>
-if return <code>true</code> = URL-parameter keyfound, but no value<br>
 
 <h4>Usage</h4>
 
@@ -32,51 +67,127 @@ if return <code>true</code> = URL-parameter keyfound, but no value<br>
 //ad is called through the URL https://example.com/?importantData=helloWorld
 
 console.log(getUrlParam('importantData'));
-
 //returns helloWorld
+
+// if return false = URL-parameter not found
+// if return true = URL-parameter key found, but no value
 ```
 
-<h3><code>create(type,settingObj)</code> </h3>
+<br><br>
+
+---
+
+<h3>Function <code>create(type,settingsObj)</code> </h3>
 A handy function to create DOM elements on the go, together with attributes and their contents.
 
 <h4>Usage</h4>
 
 ```javascript
-const myElement =
-        create('div',
-                {
-                id:'footer-logo',
-                class: 'logo',
-                style: 'border:2px solid red',
-                content : '<img src='./assets/logo.png' />',
-                });
+const myElement = create('div', {
+	id: 'logo-footer',
+	class: 'logos',
+	style: 'border:2px solid red',
+	content: `<img src='./assets/logo.png' />`,
+});
 
 console.log(myElement);
 
-/*  returns ...
-<div id="footer-logo" class="logo" style="border:2px solid red">
-   <img src="./assets/logo.png">
+/*  returns DOM element
+<div id="logo-footer" class="logos" style="border:2px solid red">
+    <img src="./assets/logo.png">
 </div>
 */
-
 ```
 
-<h3><code>azLog(obj)</code> </h3>
-A custom console.log function, to highlight own console.logs, which can be useful, when you try to identify you own stuff in a messy live enviroment, where the console is spammed by multiple sources.
+<br><br>
 
-<h5>Types</h5>
+---
 
-| Type    | Style                              |
-| ------- | ---------------------------------- |
-| error   | ![alt text](./doc/log_error.png)   |
-| warning | ![alt text](./doc/log_warning.png) |
-| success | ![alt text](./doc/log_success.png) |
-| info    | ![alt text](./doc/log_info.png)    |
+<h3>Function <code>azLog(obj)</code> </h3>
+The console in advertisment enviroments is often very poluted from different sources and sometimes its hard to find own logs. This function creates customized console.logs to make own logs more visible.
+<br>
 
 <h4>Usage</h4>
 
 ```javascript
-azLog({warning,'You didnt sleep 8 hours this night. Try to make a rest.'});
+azLog({ error: 'Lorem ipsum dolor sit amet...' });
+azLog({ warning: 'Lorem ipsum dolor sit amet...' });
+azLog({ success: 'Lorem ipsum dolor sit amet...' });
+azLog({ info: 'Lorem ipsum dolor sit amet...' });
 ```
 
+<style>
+
+.logstyle{
+    font-family: Courier
+}
+
+.logstyle span {
+    font-weight:bold;
+}
+
+.logstyle span:nth-child(1)
+    {
+     border-radius: 2px 0 0 2px;
+     padding:0 3px 0 3px;
+     font-weight:bold;
+     color:#ffffff;
+    }
+.logstyle span:nth-child(2)
+    {
+        border-radius:0 2px 2px 0;
+        padding:0 3px 0 3px;
+        font-weight:bold;
+    }
+
+.error span:nth-child(1)
+    {  background:red;   }
+.error span:nth-child(2)
+    {  background:#f8d7da;color:#ff0000;   }
+.warning span:nth-child(1)
+    {  background:orange;   }
+.warning span:nth-child(2)
+    {  background:#f8d7da;color:#ff8400;   }
+.success span:nth-child(1)
+    {  background:#00af28;   }
+.success span:nth-child(2)
+    {  background:#d4edda;color:#00af28;   }
+.info span:nth-child(1)
+    {  background:#007bff;  }
+.info span:nth-child(2)
+    {  background:#cce5ff;color:#007bff;   }  
+</style>
+
+| Type    | Console Style (how it looks like in your console)                                                       |
+| ------- | ------------------------------------------------------------------------------------------------------- |
+| error   | <span class="logstyle error"> <span>AZ</span><span>Error</span> Lorem ipsum dolor sit amet...<span>     |
+| warning | <span class="logstyle warning"> <span>AZ</span><span>Warning</span> Lorem ipsum dolor sit amet...<span> |
+| success | <span class="logstyle success"> <span>AZ</span><span>Success</span> Lorem ipsum dolor sit amet...<span> |
+| info    | <span class="logstyle info"> <span>AZ</span><span>Info</span> Lorem ipsum dolor sit amet...<span>       |
+
+<br><br>
+
 ---
+
+<h3>Function <code>generateAzTag()</code></h3>
+
+After uploading the ad to a (CDN)server, this function can generate the ad-tag script, which is used for the campaign.
+Just press <code>F10</code> on the keyboard and the script will be displayed.
+<br><br>
+
+```javascript
+// when you press F10 this will be displayed as overlay
+// the ad operator only has adjust the correct click macro
+// and add the size of the ad at width/height (like '300px' or '100%' )
+
+<script>
+    var azAd = {
+        src: 'https://creative.bluestack.app/direct/724-5/index.html',
+        clickout: '[CLICKMACRO]',
+        width: '[CREATIVE_WIDTH]',
+        height: '[CREATIVE_HEIGHT]',
+	};
+var azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.clickout)+'" style="width:'+azAd.width+';height:'+azAd.height+';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';document.write(azFrame);
+</script>
+
+```
