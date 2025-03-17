@@ -141,22 +141,12 @@ Just press <code>F10</code> on the keyboard and the script will be displayed.
 -->
 
 <script>
-	var azAd = {
-		src: 'https://creative.bluestack.app/direct/724-5/index.html',
-		clickout: '[CLICKMACRO]',
-		width: '[CREATIVE_WIDTH]',
-		height: '[CREATIVE_HEIGHT]',
+    var azAd = {
+        src: 'https://creative.bluestack.app/direct/724-5/index.html',
+        clickout: '[CLICKMACRO]',
+        width: '[CREATIVE_WIDTH]',
+        height: '[CREATIVE_HEIGHT]',
 	};
-	var azFrame =
-		'<iframe src="' +
-		azAd.src +
-		'?clicktag=' +
-		encodeURIComponent(azAd.clickout) +
-		'" style="width:' +
-		azAd.width +
-		';height:' +
-		azAd.height +
-		';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';
-	document.write(azFrame);
+var azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.clickout)+'" style="width:'+azAd.width+';height:'+azAd.height+';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';document.write(azFrame);
 </script>
 ```
