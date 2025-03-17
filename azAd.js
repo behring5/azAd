@@ -95,16 +95,16 @@ var azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.click
 
 /////////////////////////////
 /// handy function to create DOM elements
-function create(type, settingsObj) {
+function create(type, ...args) {
 	const el = document.createElement(type);
-	if (settingsObj) {
-		for (const [key, value] of Object.entries(settingsObj)) {
-			if (typeof value != 'undefined') {
-				if (key.indexOf('content') == 0) {
-					el.innerHTML = value;
-				} else {
-					el.setAttribute(key, value);
-				}
+	const settings = args[0];
+
+	for (const [key, value] of Object.entries(settings)) {
+		if (typeof value != 'undefined') {
+			if (key.indexOf('content') == 0) {
+				el.innerHTML = value;
+			} else {
+				el.setAttribute(key, value);
 			}
 		}
 	}
@@ -129,7 +129,7 @@ function track(pxlUrl) {
 /// custom console.log function for custom azAd logs
 function azLog(obj) {
 	const a = `border-radius: 2px 0 0 2px;padding:0 3px 0 3px;font-weight:bold;color:#ffffff;`;
-	const b = `border-radius:0 2px 2px 0;padding:0 3px 0 3px;font-weight:bold;`;
+	const b = `border-radius:0 2px 2px 0;padding:0 3px 1px 3px;font-weight:bold;`;
 	if (obj.error) {
 		console.log('%cAZ%cError', `background:red;${a}`, `background:#f8d7da;color:#ff0000;${b}`, obj.error);
 	} else if (obj.warning) {

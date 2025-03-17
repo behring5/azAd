@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-		<div id="azAd" class="mpu">
+		<div id="azAd" class="interstitial">
 			<!-- what a nice place for an advertisment !-->
 		</div>
 
@@ -23,11 +23,16 @@
 			//  var clickTag = 'https://example.com';
 		</script>
 
-		<script src="./azAd.min.js"></script>
+		<script src="./azAd.js"></script>
 
 		<!-- 
-        GSAP - sometimes quite handy for complexe animations -> https://gsap.com/resources
+        GSAP - mostly not necessary, but quite handy for complexe animations -> https://gsap.com/resources
 		<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
         -->
+
+		<script>
+			console.log(create('div', { id: 'test' }));
+			console.log(create('div'));
+		</script>
 	</body>
 </html>
