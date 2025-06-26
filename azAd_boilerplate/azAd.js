@@ -1,8 +1,7 @@
 /////////////////////////////
 // Clickout functionality
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
 	let clickTagFound = false;
-
 	const urlClickTag = getUrlParam('clicktag');
 	if (typeof urlClickTag === 'string' && typeof urlClickTag !== 'undefined' && urlClickTag !== '') {
 		clickTag = urlClickTag;
@@ -17,9 +16,9 @@
 	}
 
 	if (clickTagFound) {
-		if (typeof clickableElementIds != 'undefined' && clickableElementIds.length > 0) {
-			for (let i = 0; i < clickableElementIds.length; i++) {
-				const el = document.getElementById(clickableElementIds[i]);
+		if (typeof clickElementIds != 'undefined' && clickElementIds.length > 0) {
+			for (let i = 0; i < clickElementIds.length; i++) {
+				const el = document.getElementById(clickElementIds[i]);
 
 				if (el) {
 					el.addEventListener(
@@ -32,7 +31,7 @@
 					);
 					el.style.cursor = 'pointer';
 				} else {
-					azLog({ error: 'clickable Element with Id "' + clickableElementIds[i] + '" not found' });
+					azLog({ error: 'clickable Element with Id "' + clickElementIds[i] + '" not found' });
 				}
 			}
 		} else {
@@ -44,7 +43,7 @@
 			});
 		}
 	}
-})();
+});
 
 /////////////////////////////
 /// get URL query parameter (true = key found, but no value)
@@ -113,7 +112,7 @@ function create(type, settingsObj) {
 
 /////////////////////////////
 /// function to load trackingpixel
-function track(pxlUrl) {
+function track(pxlUrl, name) {
 	let url = pxlUrl;
 	if (pxlUrl.includes('[timestamp]')) {
 		url = pxlUrl.replace('[timestamp]', Math.round(Math.random() * 100000));
@@ -122,7 +121,7 @@ function track(pxlUrl) {
 	}
 	const pixel = document.createElement('img');
 	pixel.src = url;
-	azLog({ success: 'Tracking pixel loaded: ' + url });
+	azLog({ success: (name ? name + ' ' : '') + 'pixel loaded: ' + url });
 }
 
 /////////////////////////////
@@ -141,6 +140,15 @@ function azLog(obj) {
 	} else {
 		console.log(obj);
 	}
+}
+
+/////////////////////////////
+// Preview Mode
+if (getUrlParam('preview')) {
+	const script = document.createElement('script');
+	script.src = '../previewFeature/azPreview.js';
+	script.async = false;
+	document.head.appendChild(script);
 }
 
 /////////////////////////////
