@@ -8,26 +8,19 @@
 	</head>
 
 	<body>
-		<div id="azAd" class="mpu">
+		<div id="azAd">
 			<!-- what a nice place for an advertisment !-->
 		</div>
 
+		<script src="./azAd.min.js"></script>
 		<script>
 			//  define which elements are clickable for a clickout to the landingpage
 			//  just add element IDs to the array like  ['ctaButton', 'logo']
 			//  if you dont add any IDs or remove the variable, the whole body will be clickable
-			const clickableElementIds = [];
+			const clickElementIds = [];
 
-			//  here you can define a hardcoded clickTag
 			//  when ad is called with clickTag-URL-parameter, this will be overwritten
 			//  var clickTag = 'https://example.com';
 		</script>
-
-		<script src="./azAd.min.js"></script>
-
-		<!-- 
-        GSAP - sometimes quite handy for complexe animations -> https://gsap.com/resources
-		<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-        -->
 	</body>
 </html>
