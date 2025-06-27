@@ -146,7 +146,8 @@ function azLog(obj) {
 // Preview Mode
 if (getUrlParam('preview')) {
 	const script = document.createElement('script');
-	script.src = '../previewFeature/azPreview.js';
+	//script.src = '../azAd_previewMode/azPreview.js'; //this is for dev mode
+	script.src = 'https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@master/azAd_previewMode/azPreview.min.js';
 	script.async = false;
 	document.head.appendChild(script);
 }
