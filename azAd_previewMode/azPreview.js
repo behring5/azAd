@@ -12,7 +12,7 @@
 	document.title = 'PREVIEW - ' + adContent.substring(adContent.indexOf('<title>') + 7, adContent.lastIndexOf('</title>'));
 	const adIframe = createIframe('adIframe', adContent);
 	const websiteIframe = createIframe('websiteIframe', htmlSkeleton('previewWebsite', websiteContent()));
-	console.clear();
+
 	document.getElementById('websiteplaceholder').replaceWith(websiteIframe);
 	websiteIframe.contentDocument.getElementById('adContainer').appendChild(adIframe);
 
