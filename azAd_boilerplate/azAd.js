@@ -147,7 +147,7 @@ function azLog(obj) {
 if (getUrlParam('preview')) {
 	const script = document.createElement('script');
 	//script.src = '../azAd_previewMode/azPreview.js'; //this is for dev mode
-	script.src = 'https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@master/azAd_previewMode/azPreview.min.js';
+	script.src = 'https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@master/azAd_previewMode/azPreview.min.js?v=' + Math.round(Math.random() * 100000);
 	script.async = false;
 	document.head.appendChild(script);
 }

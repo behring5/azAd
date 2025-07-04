@@ -4,7 +4,7 @@
 	}
 
 	//const PREVIEW_CSS = '../azAd_previewMode/azPreview.css'; //this is for dev mode
-	const PREVIEW_CSS = 'https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@master/azAd_previewMode/azPreview.min.css';
+	const PREVIEW_CSS = 'https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@master/azAd_previewMode/azPreview.min.css?v=' + Math.round(Math.random() * 100000);
 	console.clear();
 	console.log('Loading Preview...');
 	window.addEventListener(
