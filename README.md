@@ -1,30 +1,52 @@
-<h1>HTML Ad Boilerplate/Toolkit</h1>
+# HTML Ad Boilerplate & azAd.js Toolkit
 
-<p style="font-size:20px;">This is my basic package to start building an ad from scratch.<p>
+<p style="font-size:20px;">This is my basic package to start building an ad from scratch. <>
 
--  [index.html](./dist/index.html)
--  [style.css](./dist/style.css)
--  [azAd.min.js](./dist/azAd.min.js)
+-  [index.html](./azAd_boilerplate/index.html)
+-  [style.css](./azAd_boilerplate/style.css)
+-  [azAd.js](./azAd_boilerplate/azAd.js)
 
 <br>
 
----
+The HTML/CSS files are nothing special, just basic templates for me to start, so I don't have to type the sames things every time. But don't reading, you might be interessted in the azAd.js
 
-<h2>index.html & style.css</h2>
+----
 
-The [index.html](./dist/index.html) includes a basic HTML sceleton, with a suitable viewport, a div to work in <code>`<div id="azAd" class="mpu"></div>`</code> and the minifyed [azAd.js](./dist/azAd.js) at the bottom.<br><br>
-The html-tag has a <code>class="preload"</code>. This is added to avoid css keyframe animations beeing visible on pageload (if you know, you know ;-). The class is removed by azAd.js, when all assets are loaded.<br><br>
-The [style.css](./dist/style.css) file includes some basic reset styles, some standard ad sizes and an overlay for the class <code>interstitial</code>, which tells the user to rotate the device.
-<br><br>
 <br>
 
-<h2>azAd.js</h2>
-azAd.js includes a small selection of functions, which I use in my daily work when creating ads or managing the ad ops part of a campaign.
+## 🚀 azAd.js Toolkit
+The azAd.js is a handy selection of functions for people who build HTML ads and those who manage the campaigns afterwards. These are functions, which I use in my daily work when creating ads or managing the ad ops part of a campaign.
+<br>
+
+<br>
+
+-  [Preview Mode](#Preview-mode)
+-  [Clickout handling](#Clickout-handling)
+-  [Load Trackingpixel](#Load-Trackingpixel)
+-  [URL-Parameter](#URL-Parameter)
+-  [Create DOM elements](#Create-DOM-elements)
+-  [Custom Logs](#az-Logs)
+-  [Generate Ad Tag Script](#Generate-Ad-Tag)
+
 <br><br>
+---
+
+### Preview Mode
+
+<img src="./docs/previewMode.jpg" width="300" align="right" style="margin-left:60px" >
+<br>
+
+- when you add azAd.js to your html ad,you can call the ad with <code>?preview=${format}</code> url parameter and it generates a preview in a smartphone like frame
+- available formats: int, mrec/mpu, banner, hpa
+- alternativly add specific sizein pixel like <code>?preview=300x600</code>
+- this preview feature is loaded externally and only when the parameter is added, so the the azAd.js file stays as small as possible to use in campaigns
+
+<br><br>
+<br><br><br>
 
 ---
 
-<h3>Clickout handling</h3>
+### Clickout handling
 Clickouts in digital ads are often <b>not</b> triggered by HTML a-tags, but instead by Javascript <code>window.open()</code> function.
 The clickout link is either hardcoded stored in a variable called <code>clickTag</code> or is parsed into the ad via URL parameter.
 <br><br>
@@ -32,17 +54,16 @@ By default azAd.js is checking for a URL parameter "clicktag" in the URL (e.g. h
 <br>
 If you want to specifiy certain elements to be clickable only, you can add their IDs to the array <code>clickableElementIds</code> in the index.html. Then only the sepcified elements are clickable.
 
-<br>
 
 <br><br>
 
 ---
 
-<h3>Function <code>track(pxlUrl)</code> </h3>
+### Load Trackingpixel <code>track(pxlUrl)</code>
 
-This function is loading a tracking pixel, for engagement tracking. If the cachbuster macro <code>`[timestamp]`</code> is found in pixel url, it will be replaced with a randomized number.
+This function is loading a tracking pixel, for engagement tracking. If the cachbuster macro <code>`[timestamp]`</code> is found in pixel url, it will be replaced with a randomized number. It also generates a console.log message, when pixel is loaded.
 
-<h4>Usage</h4>
+#### Usage
 
 ```javascript
 var trackingPixel = 'https://trackingserver.com/trackingpixel.jpg?cachebuster=[timestamp]';
@@ -57,11 +78,11 @@ track(trackingPixel);
 
 ---
 
-<h3>Function <code>getUrlParam(string)</code> </h3>
+### URL-Parameter <code>getUrlParam(string)</code>
 
-A function to get URL-query parameter data, like a clicktag
+A function to get URL-query parameter data, like a clicktag.
 
-<h4>Usage</h4>
+#### Usage
 
 ```javascript
 //ad is called through the URL https://example.com/?importantData=helloWorld
@@ -77,10 +98,10 @@ console.log(getUrlParam('importantData'));
 
 ---
 
-<h3>Function <code>create(type,settingsObj)</code> </h3>
-A handy function to create DOM elements on the go, together with attributes and their contents.
+### Create DOM elements <code>create(type,settingsObj)</code>
+A handy function to create DOM elements on the go, together with attributes and their contents (innerHTML).
 
-<h4>Usage</h4>
+#### Usage
 
 ```javascript
 const myElement = create('div', {
@@ -103,11 +124,11 @@ console.log(myElement);
 
 ---
 
-<h3>Function <code>azLog(obj)</code> </h3>
-The console in advertisment enviroments is often very poluted from different sources and sometimes its hard to find own logs. This function creates customized console.logs to make own logs more visible.
+### Custom Logs <code>azLog(obj)</code>
+In advertisment enviroments the console is often very poluted from different sources and sometimes its hard to find own logs. This function creates customized console.logs to make own logs more visible.
 <br>
 
-<h4>Usage</h4>
+#### Usage
 
 ```javascript
 azLog({ error: 'Lorem ipsum dolor sit amet...' });
@@ -127,7 +148,7 @@ azLog({ info: 'Lorem ipsum dolor sit amet...' });
 
 ---
 
-<h3>Function <code>generateAzTag()</code></h3>
+### Generate Ad Tag <code>generateAzTag()</code>
 
 After uploading the ad to a (CDN)server, this function can generate the ad-tag script, which is used for the campaign.
 Just press <code>F10</code> on the keyboard and the script will be displayed.
@@ -150,3 +171,14 @@ Just press <code>F10</code> on the keyboard and the script will be displayed.
 var azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.clickout)+'" style="width:'+azAd.width+';height:'+azAd.height+';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';document.write(azFrame);
 </script>
 ```
+
+
+<br><br>
+---
+<br>
+
+## index.html & style.css
+
+The [index.html](./dist/index.html) includes a basic HTML sceleton, with a suitable viewport, a div to work in <code>`<div id="azAd"></div>`</code> and the minifyed [azAd.js](./dist/azAd.js) at the bottom.<br>
+The html-tag has a <code>class="preload"</code>. This is added to avoid css keyframe animations beeing visible on pageload (if you know, you know ;-). The class is removed by azAd.js, when all assets are loaded.<br>
+<br>
