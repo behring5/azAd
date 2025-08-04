@@ -52,8 +52,20 @@ The clickout link is either hardcoded stored in a variable called <code>clickTag
 <br><br>
 By default azAd.js is checking for a URL parameter "clicktag" in the URL (e.g. https://cdnserver.com/myad/?clicktag=https://example.com) and assigns it to the whole html body as clickoutlink.
 <br>
-If you want to specifiy certain elements to be clickable only, you can add their IDs to the array <code>clickableElementIds</code> in the index.html. Then only the sepcified elements are clickable.
+If you want to specifiy certain elements to be clickable only, you can add their IDs to the array <code>clickElementIds</code> in the index.html. Then only the sepcified elements are clickable.
 
+#### Usage
+
+```html
+<div id="examplediv"></div>
+<img src="./logo.png" id="logo" />
+
+<script src="./azAd.min.js"></script>
+
+<script>
+	const clickElementIds = ['examplediv, 'logo'];
+</script>
+```
 
 <br><br>
 
