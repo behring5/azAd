@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /////////////////////////////
 /// get URL query parameter (true = key found, but no value)
 function getUrlParam(string) {
-	let urlParams = new URLSearchParams(window.location.search);
+	const urlParams = new URLSearchParams(window.location.search);
 	if (urlParams.has(string)) {
 		if (urlParams.get(string) !== '') {
 			return decodeURIComponent(urlParams.get(string));
@@ -72,13 +72,13 @@ document.addEventListener('keydown', function (event) {
 function generateAzTag() {
 	//prettier ignore
 	const adScript = `<script>
-    var azAd = {
+    const azAd = {
         src: '${window.location.origin + window.location.pathname}',
         clickout: '[CLICKMACRO]',
         width: '[CREATIVE_WIDTH]',
         height: '[CREATIVE_HEIGHT]',
 	};
-var azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.clickout)+'" style="width:'+azAd.width+';height:'+azAd.height+';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';document.write(azFrame);
+const azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.clickout)+'" style="width:'+azAd.width+';height:'+azAd.height+';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';document.write(azFrame);
 </script>`;
 
 	const codeblock = create('textarea', {
