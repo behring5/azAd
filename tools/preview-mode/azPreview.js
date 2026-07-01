@@ -1,6 +1,6 @@
 /*!
  * azAd Boilerplate — Preview Mode v2.0.0
- * https://github.com/behring5/azAd_boilerplate
+ * https://github.com/behring5/azAd
  *
  * christoph@behring5.de
  */

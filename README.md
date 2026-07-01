@@ -44,6 +44,11 @@ tools/
 
 ## Quick Start
 
+> [!TIP]
+> Copy the `dist/` folder from this repository and start editing straight away — no install or build step required.
+
+
+
 1. Build your ad inside `src/index.html`
 2. Add your styles to `src/style.scss` / `style.min.css`
 3. Configure the clickout at the top of the inline `<script>` in `index.html`:
@@ -209,8 +214,8 @@ The preview mode files are served via [jsDelivr](https://www.jsdelivr.com/) from
 1. Update `AZ_VERSION` in `src/azAd.js` and uncomment the CDN lines:
 ```js
 const AZ_VERSION = 'v2.0.0';
-window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
-const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
+window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
+const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
 ```
 2. Commit all changes
 3. Create a git tag (e.g. `v2.0.0`) via GitHub Desktop or GitHub.com → Releases

@@ -1,6 +1,6 @@
 /*!
  * azAd Boilerplate v2.0.0
- * https://github.com/behring5/azAd_boilerplate
+ * https://github.com/behring5/azAd
  *
  * christoph@behring5.de
  */
@@ -181,8 +181,8 @@ document.body.addEventListener(
 // Preview Mode
 if (getUrlParam('preview')) {
 	const AZ_VERSION = 'v2.0.0';
-	window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
-	const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
+	window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
+	const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
 	// window.AZ_PREVIEW_CSS = '../tools/preview-mode/azPreview.min.css'; // dev mode
 	// const previewSrc = '../tools/preview-mode/azPreview.min.js'; // dev mode
 	const script = document.createElement('script');
