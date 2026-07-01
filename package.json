@@ -17,7 +17,7 @@
 	"scripts": {
 		"build:css": "sass src/style.scss src/style.css && sass --style=compressed src/style.scss src/style.min.css && sass tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.css && sass --style=compressed tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.min.css",
 		"build:js": "terser src/azAd.js -o src/azAd.min.js && terser tools/preview-mode/azPreview.js -o tools/preview-mode/azPreview.min.js",
-		"build:dist": "cpy src/index.html src/azAd.min.js src/style.scss src/style.min.css dist && cpy \"src/assets/**\" dist/assets",
+		"build:dist": "cpy src/index.html src/azAd.min.js src/style.scss src/style.min.css dist --flat && cpy \"src/assets/**\" dist/assets --flat",
 		"build": "npm run build:css && npm run build:js && npm run build:dist",
 		"watch": "sass --watch src/style.scss src/style.css"
 	},
