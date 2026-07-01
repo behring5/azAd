@@ -1,196 +1,205 @@
-# HTML Ad Boilerplate & azAd.js Toolkit
+# azAd Boilerplate
 
-<p style="font-size:20px;">This is my basic package to start building an ad from scratch. <>
-
--  [index.html](./azAd_boilerplate/index.html)
--  [style.css](./azAd_boilerplate/style.css)
--  [azAd.js](./azAd_boilerplate/azAd.js)
-
-<br>
-
-The HTML/CSS files are nothing special, just basic templates for me to start, so I don't have to type the sames things every time. But don't reading, you might be interessted in the azAd.js
-
-----
-
-<br>
-
-## 🚀 azAd.js Toolkit
-The azAd.js is a handy selection of functions for people who build HTML ads and those who manage the campaigns afterwards. These are functions, which I use in my daily work when creating ads or managing the ad ops part of a campaign.
-<br>
-
-<br>
-
--  [Preview Mode](#Preview-mode)
--  [Clickout handling](#Clickout-handling)
--  [Load Trackingpixel](#Load-Trackingpixel)
--  [URL-Parameter](#URL-Parameter)
--  [Create DOM elements](#Create-DOM-elements)
--  [Custom Logs](#az-Logs)
--  [Generate Ad Tag Script](#Generate-Ad-Tag)
-
-<br><br>
----
-
-### Preview Mode
-
-<img src="./docs/previewMode.jpg" width="300" align="right" style="margin-left:60px" >
-<br>
-
-- when you add azAd.js to your html ad,you can call the ad with <code>?preview=${format}</code> url parameter and it generates a preview in a smartphone like frame
-- available formats: int, mrec/mpu, banner, hpa
-- alternativly add specific sizein pixel like <code>?preview=300x600</code>
-- this preview feature is loaded externally and only when the parameter is added, so the the azAd.js file stays as small as possible to use in campaigns
-
-<br><br>
-<br><br><br>
+A lightweight boilerplate for building HTML display ads. Handles clickout functionality, event tracking, ad tag generation, and a built-in preview mode — with no dependencies.
 
 ---
 
-### Clickout handling
-Clickouts in digital ads are often <b>not</b> triggered by HTML a-tags, but instead by Javascript <code>window.open()</code> function.
-The clickout link is either hardcoded stored in a variable called <code>clickTag</code> or is parsed into the ad via URL parameter.
-<br><br>
-By default azAd.js is checking for a URL parameter "clicktag" in the URL (e.g. https://cdnserver.com/myad/?clicktag=https://example.com) and assigns it to the whole html body as clickoutlink.
-<br>
-If you want to specifiy certain elements to be clickable only, you can add their IDs to the array <code>clickElementIds</code> in the index.html. Then only the sepcified elements are clickable.
+## Project Structure
 
-#### Usage
+```
+src/
+  index.html        # Ad entry point
+  azAd.js           # Core ad toolkit
+  style.scss        # Ad styles (source)
+  style.css         # Compiled CSS
+  style.min.css     # Minified CSS
+
+tools/
+  preview-mode/
+    azPreview.js    # Preview mode script (loaded on demand)
+    azPreview.css   # Preview mode styles
+    azPreview.scss  # Preview mode styles (source)
+```
+
+---
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Clickout](#clickout-azadjs)
+  - [Tracking Pixels](#tracking-pixels)
+  - [DOM Helper — create()](#dom-helper--create)
+  - [Logging — azLog()](#logging--azlog)
+  - [Ad Tag Generator](#ad-tag-generator)
+- [Preview Mode](#preview-mode)
+  - [Phone Preview](#phone-preview-default)
+  - [Desktop Preview](#desktop-preview)
+  - [Supported Named Sizes](#supported-named-sizes)
+  - [Custom Dimensions](#custom-dimensions)
+- [Build](#build)
+- [Releasing / CDN](#releasing--cdn)
+
+---
+
+## Quick Start
+
+1. Build your ad inside `src/index.html`
+2. Add your styles to `src/style.scss` / `style.css`
+3. Configure the clickout at the top of the inline `<script>` in `index.html`:
 
 ```html
-<div id="examplediv"></div>
-<img src="./logo.png" id="logo" />
-
-<script src="./azAd.min.js"></script>
-
+<script src="./azAd.js"></script>
 <script>
-	const clickElementIds = ['examplediv, 'logo'];
+    let clickTag = 'https://example.com';        // optional hardcoded fallback
+    const clickElementIds = ['logo', 'cta-btn']; // elements that trigger clickout
+                                                  // leave empty [] for full-body click
 </script>
 ```
 
-<br><br>
+---
+
+## Features
+
+### Clickout (`azAd.js`)
+
+Clickout URL is resolved in this order:
+
+1. **URL parameter** `?clicktag=[ENCODED_CLICKURL]` — set by the ad server at serve time *(takes priority)*
+2. **Hardcoded** `let clickTag = '...'` — fallback for development/testing
+
+Define which elements should be clickable via `clickElementIds`. If the array is empty or undefined, the entire body becomes clickable.
 
 ---
 
-### Load Trackingpixel <code>track(pxlUrl)</code>
+### Engagement Tracking (with Pixels)
 
-This function is loading a tracking pixel, for engagement tracking. If the cachbuster macro <code>`[timestamp]`</code> is found in pixel url, it will be replaced with a randomized number. It also generates a console.log message, when pixel is loaded.
+Fire a tracking pixel from anywhere in the ad:
 
-#### Usage
-
-```javascript
-var trackingPixel = 'https://trackingserver.com/trackingpixel.jpg?cachebuster=[timestamp]';
-
-track(trackingPixel);
-
-// console shows loaded pixel
-// https://trackingserver.com/trackingpixel.jpg?cachebuster=1354649
+```js
+track('https://tracker.example.com/pixel?t=[timestamp]', 'eventName');
 ```
 
-<br><br>
+The `[timestamp]` placeholder is automatically replaced with `Date.now()` as a cachebuster.
 
 ---
 
-### URL-Parameter <code>getUrlParam(string)</code>
+### DOM Helper — `create()`
 
-A function to get URL-query parameter data, like a clicktag.
+Convenience function for creating DOM elements:
 
-#### Usage
-
-```javascript
-//ad is called through the URL https://example.com/?importantData=helloWorld
-
-console.log(getUrlParam('importantData'));
-//returns helloWorld
-
-// if return false = URL-parameter not found
-// if return true = URL-parameter key found, but no value
-```
-
-<br><br>
-
----
-
-### Create DOM elements <code>create(type,settingsObj)</code>
-A handy function to create DOM elements on the go, together with attributes and their contents (innerHTML).
-
-#### Usage
-
-```javascript
-const myElement = create('div', {
-	id: 'logo-footer',
-	class: 'logos',
-	style: 'border:2px solid red',
-	content: `<img src='./assets/logo.png' />`,
+```js
+const el = create('div', {
+    id: 'my-element',
+    class: 'animated',
+    style: 'opacity:0',
+    content: '<img src="./assets/logo.png">',
 });
-
-console.log(myElement);
-
-/*  returns DOM element
-<div id="logo-footer" class="logos" style="border:2px solid red">
-    <img src="./assets/logo.png">
-</div>
-*/
+document.getElementById('azAd').appendChild(el);
 ```
-
-<br><br>
 
 ---
 
-### Custom Logs <code>azLog(obj)</code>
-In advertisment enviroments the console is often very poluted from different sources and sometimes its hard to find own logs. This function creates customized console.logs to make own logs more visible.
-<br>
+### Logging — `azLog()`
 
-#### Usage
+Styled console output to make ad logs easy to spot in a busy console environment:
 
-```javascript
-azLog({ error: 'Lorem ipsum dolor sit amet...' });
-azLog({ warning: 'Lorem ipsum dolor sit amet...' });
-azLog({ success: 'Lorem ipsum dolor sit amet...' });
-azLog({ info: 'Lorem ipsum dolor sit amet...' });
+```js
+azLog({ success: 'Ad initialized' });
+azLog({ info: 'clickTag found' });
+azLog({ warning: 'No clickTag defined' });
+azLog({ error: 'Element #logo not found' });
 ```
+<img style="max-width: 500px;" src="./docs/styled-console-logs.jpg" alt="">
 
-| Type    | Console Style (how it looks in your console) |
-| ------- | -------------------------------------------- |
-| error   | ![](./docs/log_error.png)                    |
-| warning | ![](./docs/log_warning.png)                  |
-| success | ![](./docs/log_success.png)                  |
-| info    | ![](./docs/log_info.png)                     |
-
-<br><br>
+<br>
+Each log also shows the file and line number of the caller.
 
 ---
 
-### Generate Ad Tag <code>generateAzTag()</code>
-
-After uploading the ad to a (CDN)server, this function can generate the ad-tag script, which is used for the campaign.
-Just press <code>F10</code> on the keyboard and the script will be displayed.
+### Ad Tag Generator
+<img style="max-width: 500px;" src="./docs/adtag-generator.jpg" alt="">
 <br><br>
+Upload the ad to a CDN server and press **F10** on your keyboard while viewing the ad to generate a ready-to-use third-party ad tag. The overlay shows a read-only code block you can copy directly into your ad server.
 
-```html
-<!-- 
-// when you press F10 this will be displayed as overlay
-// the ad operator only has adjust the correct click macro
-// and add the size of the ad at width/height (like '300px' or '100%' )
--->
 
-<script>
-    var azAd = {
-        src: 'https://creative.bluestack.app/direct/724-5/index.html',
-        clickout: '[CLICKMACRO]',
-        width: '[CREATIVE_WIDTH]',
-        height: '[CREATIVE_HEIGHT]',
-	};
-var azFrame ='<iframe src="'+azAd.src+'?clicktag='+encodeURIComponent(azAd.clickout)+'" style="width:'+azAd.width+';height:'+azAd.height+';border:0px #fff none;" scrolling="no" frameborder="0" allowfullscreen></iframe><style>body,html{width:100%;height:100%;padding:0;margin:0}</style>';document.write(azFrame);
-</script>
+The generated tag:
+- Loads the ad in an iframe
+- Accepts `?clicktag=[UNENCODED_CLICKMACRO]` — replace the placeholder with your ad server's unencoded click macro (the tag handles encoding internally)
+- Replace `[CREATIVE_WIDTH]` and `[CREATIVE_HEIGHT]` with the actual dimensions
+
+Close the overlay with **Esc** or the Close button.
+
+---
+
+## Preview Mode
+
+Append `?preview=<size>` to the ad URL to open a device preview.
+Two preview modes for mobile and desktop are possible.
+
+<img style="width:45%; max-width: 350px;" src="./docs/previewMode-mobile.jpg" alt="">  <img style="width:45%; max-width: 350px; margin-left:10px" src="./docs/previewMode-desktop.jpg" alt="">
+
+### Phone preview (default)
+
+```
+index.html?preview=mrec
+index.html?preview=phone:mrec
 ```
 
+### Desktop preview
+```
+index.html?preview=desktop:mrec
+index.html?preview=desktop:superbanner
+```
 
-<br><br>
+### Supported named sizes
+
+| Name | Width | Height | Notes |
+|------|-------|--------|-------|
+| `mrec` / `mpu` | 300px | 250px | |
+| `hpa` | 300px | 600px | Half Page Ad |
+| `banner` | 320px | 50px | Mobile banner |
+| `superbanner` | 728px | 90px | Desktop leaderboard |
+| `skyscraper` | 160px | 600px | |
+| `billboard` | 970px | 250px | |
+| `int` | full | full | Interstitial |
+
+### Custom dimensions
+```
+index.html?preview=500x400
+index.html?preview=desktop:970x250
+```
+
+Desktop previews wider than 340px are automatically placed above the article content instead of in the sidebar.
+
+On a real mobile device (screen ≤ 480px), the phone frame is skipped and the dummy website renders as a normal page.
+
 ---
-<br>
 
-## index.html & style.css
+## Build
 
-The [index.html](./dist/index.html) includes a basic HTML sceleton, with a suitable viewport, a div to work in <code>`<div id="azAd"></div>`</code> and the minifyed [azAd.js](./dist/azAd.js) at the bottom.<br>
-The html-tag has a <code>class="preload"</code>. This is added to avoid css keyframe animations beeing visible on pageload (if you know, you know ;-). The class is removed by azAd.js, when all assets are loaded.<br>
-<br>
+```bash
+npm install        # install dependencies (first time only)
+npm run build      # compile SCSS → CSS + minify JS
+npm run build:css  # compile SCSS only
+npm run build:js   # minify JS only
+npm run watch      # auto-recompile ad styles on save
+```
+
+---
+
+## Releasing / CDN
+
+The preview mode files are served via [jsDelivr](https://www.jsdelivr.com/) from this GitHub repository. Before releasing:
+
+1. Update `AZ_VERSION` in `src/azAd.js` and uncomment the CDN lines:
+```js
+const AZ_VERSION = 'v2.0.0';
+window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
+const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd_boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
+```
+2. Commit all changes
+3. Create a git tag (e.g. `v2.0.0`) via GitHub Desktop or GitHub.com → Releases
+4. Push to GitHub
+
+The CDN URL is then permanently available at that tag and will never change.

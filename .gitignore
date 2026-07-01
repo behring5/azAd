@@ -1,5 +1,13 @@
 .git
 .gitattributes
+.gitignore
 .prettierignore
-dev_testAd
-dev_IMGs
+.vscode/
+*.log
+/assets
+
+
+Thumbs.db
+.DS_Store
+node_modules/
+*.css.map

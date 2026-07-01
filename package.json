@@ -1,0 +1,27 @@
+{
+	"name": "azad-boilerplate",
+	"version": "2.0.0",
+	"description": "A boilerplate for HTML display ads",
+	"private": true,
+	"author": "Christoph Eckert",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/behring5/azAd_boilerplate"
+	},
+	"keywords": [
+		"html-ad",
+		"display-ad",
+		"ad-boilerplate"
+	],
+	"scripts": {
+		"build:css": "sass src/style.scss src/style.css && sass --style=compressed src/style.scss src/style.min.css && sass tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.css && sass --style=compressed tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.min.css",
+		"build:js": "terser src/azAd.js -o src/azAd.min.js && terser tools/preview-mode/azPreview.js -o tools/preview-mode/azPreview.min.js",
+		"build": "npm run build:css && npm run build:js",
+		"watch": "sass --watch src/style.scss src/style.css"
+	},
+	"devDependencies": {
+		"sass": "^1.0.0",
+		"terser": "^5.0.0"
+	}
+}
