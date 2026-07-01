@@ -1,3 +1,10 @@
+/*!
+ * azAd Boilerplate — Preview Mode v2.0.0
+ * https://github.com/behring5/azAd_boilerplate
+ *
+ * christoph@behring5.de
+ */
+
 (function () {
 	if (window.self !== window.top) {
 		return;

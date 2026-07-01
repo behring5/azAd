@@ -45,11 +45,11 @@ tools/
 ## Quick Start
 
 1. Build your ad inside `src/index.html`
-2. Add your styles to `src/style.scss` / `style.css`
+2. Add your styles to `src/style.scss` / `style.min.css`
 3. Configure the clickout at the top of the inline `<script>` in `index.html`:
 
 ```html
-<script src="./azAd.js"></script>
+<script src="./azAd.min.js"></script>
 <script>
     let clickTag = 'https://example.com';        // optional hardcoded fallback
     const clickElementIds = ['logo', 'cta-btn']; // elements that trigger clickout
@@ -180,11 +180,25 @@ On a real mobile device (screen ≤ 480px), the phone frame is skipped and the d
 
 ```bash
 npm install        # install dependencies (first time only)
-npm run build      # compile SCSS → CSS + minify JS
+npm run build      # compile SCSS → CSS + minify JS + generate dist/
 npm run build:css  # compile SCSS only
 npm run build:js   # minify JS only
+npm run build:dist # copy production-ready files to dist/
 npm run watch      # auto-recompile ad styles on save
 ```
+
+`npm run build` generates a `dist/` folder with only the files needed to start a new ad:
+
+```
+dist/
+  index.html      # Ad entry point
+  azAd.min.js     # Core toolkit (minified)
+  style.scss      # Ad styles (source, editable)
+  style.min.css   # Ad styles (compiled)
+  assets/         # Placeholder assets
+```
+
+Copy `dist/` to start a new ad — no source files or build artifacts included.
 
 ---
 

@@ -11,3 +11,5 @@ Thumbs.db
 .DS_Store
 node_modules/
 *.css.map
+dist/
+CLAUDE.md

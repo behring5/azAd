@@ -1,3 +1,10 @@
+/*!
+ * azAd Boilerplate v2.0.0
+ * https://github.com/behring5/azAd_boilerplate
+ *
+ * christoph@behring5.de
+ */
+
 /////////////////////////////
 // Clickout functionality
 document.addEventListener('DOMContentLoaded', function onDOMReady() {
