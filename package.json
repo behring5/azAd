@@ -1,13 +1,13 @@
 {
-	"name": "azad-boilerplate",
-	"version": "2.0.0",
-	"description": "A boilerplate for HTML display ads",
+	"name": "azAd-Boilerplate",
+	"version": "2.0.1",
+	"description": "A boilerplate and toolkit for custom coded HTML ads.",
 	"private": true,
-	"author": "Christoph Eckert",
+	"author": "Christoph Eckert <christoph@behring5.de>",
 	"license": "ISC",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/behring5/azAd"
+		"url": "https://github.com/behring5/azad-boilerplate"
 	},
 	"keywords": [
 		"html-ad",
@@ -15,10 +15,11 @@
 		"ad-boilerplate"
 	],
 	"scripts": {
-		"build:css": "sass src/style.scss src/style.css && sass --style=compressed src/style.scss src/style.min.css && sass tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.css && sass --style=compressed tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.min.css",
+		"build:css": "sass --no-source-map src/style.scss src/style.css && sass --no-source-map --style=compressed src/style.scss src/style.min.css && sass --no-source-map tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.css && sass --no-source-map --style=compressed tools/preview-mode/azPreview.scss tools/preview-mode/azPreview.min.css",
 		"build:js": "terser src/azAd.js -o src/azAd.min.js && terser tools/preview-mode/azPreview.js -o tools/preview-mode/azPreview.min.js",
+		"build:banner": "node scripts/banner.js",
 		"build:dist": "cpy src/index.html src/azAd.min.js src/style.scss src/style.min.css dist --flat && cpy \"src/assets/**\" dist/assets --flat",
-		"build": "npm run build:css && npm run build:js && npm run build:dist",
+		"build": "npm run build:banner && npm run build:css && npm run build:js && npm run build:banner && npm run build:dist",
 		"watch": "sass --watch src/style.scss src/style.css"
 	},
 	"devDependencies": {

@@ -1,10 +1,8 @@
 /*!
- * azAd Boilerplate v2.0.0
- * https://github.com/behring5/azAd
- *
- * christoph@behring5.de
+ * azAd Boilerplate v2.0.1
+ * https://github.com/behring5/azad-boilerplate
+ * Christoph Eckert <christoph@behring5.de>
  */
-
 /////////////////////////////
 // Clickout functionality
 document.addEventListener('DOMContentLoaded', function onDOMReady() {
@@ -180,9 +178,9 @@ document.body.addEventListener(
 /////////////////////////////
 // Preview Mode
 if (getUrlParam('preview')) {
-	const AZ_VERSION = 'v2.0.0';
-	window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
-	const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
+	const AZ_VERSION = '2.0.1';
+	window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azad-boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
+	const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azad-boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
 	// window.AZ_PREVIEW_CSS = '../tools/preview-mode/azPreview.min.css'; // dev mode
 	// const previewSrc = '../tools/preview-mode/azPreview.min.js'; // dev mode
 	const script = document.createElement('script');

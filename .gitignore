@@ -2,13 +2,12 @@
 .gitattributes
 .gitignore
 .prettierignore
-.vscode/
+.vscode
 *.log
 /assets
-
+node_modules/
 
 Thumbs.db
 .DS_Store
-node_modules/
 *.css.map
 CLAUDE.md

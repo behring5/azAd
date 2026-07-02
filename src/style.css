@@ -1,8 +1,7 @@
 /*!
- * azAd Boilerplate v2.0.0
- * https://github.com/behring5/azAd
- *
- * christoph@behring5.de
+ * azAd Boilerplate v2.0.1
+ * https://github.com/behring5/azad-boilerplate
+ * Christoph Eckert <christoph@behring5.de>
  */
 * {
   margin: 0;
@@ -57,5 +56,3 @@ html.preload * {
   animation-duration: 0s !important;
   transition: all 0s !important;
 }
-
-/*# sourceMappingURL=style.css.map */

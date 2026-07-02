@@ -200,10 +200,10 @@ dist/
   azAd.min.js     # Core toolkit (minified)
   style.scss      # Ad styles (source, editable)
   style.min.css   # Ad styles (compiled)
-  assets/         # Placeholder assets
 ```
 
 Copy `dist/` to start a new ad — no source files or build artifacts included.
+
 
 ---
 
@@ -211,14 +211,15 @@ Copy `dist/` to start a new ad — no source files or build artifacts included.
 
 The preview mode files are served via [jsDelivr](https://www.jsdelivr.com/) from this GitHub repository. Before releasing:
 
-1. Update `AZ_VERSION` in `src/azAd.js` and uncomment the CDN lines:
+1. For new releases update version in `package.json`
+2. During the build process all version numbers are updated automatically `AZ_VERSION` in `src/azAd.js` and uncomment the CDN lines:
 ```js
-const AZ_VERSION = 'v2.0.0';
-window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
-const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azAd@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
+const AZ_VERSION = '2.0.1';
+window.AZ_PREVIEW_CSS = `https://cdn.jsdelivr.net/gh/behring5/azad-boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.css`;
+const previewSrc = `https://cdn.jsdelivr.net/gh/behring5/azad-boilerplate@${AZ_VERSION}/tools/preview-mode/azPreview.min.js`;
 ```
-2. Commit all changes
-3. Create a git tag (e.g. `v2.0.0`) via GitHub Desktop or GitHub.com → Releases
-4. Push to GitHub
+3. Commit all changes
+4. Create a git tag (e.g. `v2.0.1`) via GitHub Desktop or GitHub.com → Releases
+5. Push to GitHub
 
 The CDN URL is then permanently available at that tag and will never change.

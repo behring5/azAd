@@ -1,10 +1,8 @@
 /*!
- * azAd Boilerplate — Preview Mode v2.0.0
- * https://github.com/behring5/azAd
- *
- * christoph@behring5.de
+ * azAd Boilerplate — Preview Mode v2.0.1
+ * https://github.com/behring5/azad-boilerplate
+ * Christoph Eckert <christoph@behring5.de>
  */
-
 (function () {
 	if (window.self !== window.top) {
 		return;
